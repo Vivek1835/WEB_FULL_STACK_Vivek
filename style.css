@@ -196,6 +196,8 @@ body {
     margin-bottom: 0.8rem;           /* Space below label */
     font-weight: 600;                /* Semi-bold weight */
     color: var(--text-secondary);    /* Gray text color */
+    font-size: 1.55rem;             /* Slightly smaller than normal text */
+     /* Decorative underline using a pseudo-element */
 }
 
 /* HORIZONTAL BOX ROW - OLD LAYOUT (LEGACY) */
