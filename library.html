@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- ===================================================================
+     LIBRARY PAGE
+     =================================================================== -->
+<head>
+    <!-- Meta tags for character encoding and viewport settings -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library - Ironvow Shop</title>
+    <!-- Link to main stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Custom favicon for the browser tab -->
+    <link rel="icon" href="Game store logo.svg" type="image/svg+xml">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="Game store logo.svg" alt="Ironvow Shop Logo" class="img">
+                <h2>Ironvow Shop</h2>
+            </div>
+            <ul class="nav-links">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="products.html">Offer/Sale</a></li>
+                <li><a href="cart.html">Cart</a></li>
+                <li><a href="news.html">News</a></li>
+                <li><a href="library.html" class="active">Library</a></li>
+                <li><a href="myside.html">My Side</a></li>
+                <li><a href="index.html">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="library-section">
+            <h2 class="library-page-header">Website name</h2>
+
+            <div class="library-layout">
+                <div class="library-games-grid">
+                    <div class="library-game-box">
+                        <div class="game-label">Elden Ring</div>
+                    </div>
+                    <div class="library-game-box">
+                        <div class="game-label">Cyberpunk</div>
+                    </div>
+                    <div class="library-game-box">
+                        <div class="game-label">Baldur's Gate 3</div>
+                    </div>
+                    <div class="library-game-box">
+                        <div class="game-label">Starfield</div>
+                    </div>
+                    <div class="library-game-box">
+                        <div class="game-label">Witcher 3</div>
+                    </div>
+                    <div class="library-game-box">
+                        <div class="game-label">Dragon Age</div>
+                    </div>
+                    <div class="library-game-box">
+                        <div class="game-label">Final Fantasy</div>
+                    </div>
+                    <div class="library-game-box">
+                        <div class="game-label">Tekken 8</div>
+                    </div>
+                </div>
+
+                <div class="library-detail-panel">
+                    <div class="detail-header">
+                        <h3>Game Details</h3>
+                    </div>
+                    <div class="detail-content">
+                        <p><strong>Name:</strong> Elden Ring</p>
+                        <p><strong>Size:</strong> 60 GB</p>
+                        <p><strong>Developer:</strong> FromSoftware</p>
+                        <p><strong>Status:</strong> Installed</p>
+                        <p><strong>Play Time:</strong> 120 hours</p>
+                        <p><strong>Last Played:</strong> Today</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Ironvow Shop. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.querySelectorAll('.library-list a').forEach(link => {
+            link.addEventListener('click', (event) => {
+                event.preventDefault();
+                const title = link.getAttribute('data-title');
+                const size = link.getAttribute('data-size');
+                document.getElementById('game-name').textContent = title;
+                document.getElementById('game-size').textContent = size;
+                document.getElementById('game-info').textContent = `Detailed info about ${title} will appear here.`;
+            });
+        });
+    </script>
+</body>
+</html>

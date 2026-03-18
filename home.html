@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- ===================================================================
+     HOME PAGE 
+     =================================================================== -->
+<head>
+    <!-- Meta tags for character encoding and viewport settings -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ironvow Shop - Home</title>
+    <!-- Link to main stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Custom favicon for the browser tab -->
+    <link rel="icon" href="Game store logo.svg" type="image/svg+xml">
+</head>
+<body>
+    <!-- HEADER: Navigation bar with logo and main menu links -->
+    <header>
+        <!-- Navigation bar with logo and links -->
+        <nav class="navbar">
+            <!-- Logo section with shop icon and name -->
+            <div class="logo">
+                <!-- Shop logo image -->
+                <img src="Game store logo.svg" alt="Ironvow Shop Logo" class="img">
+                <!-- Shop name/title -->
+                <h2>Ironvow Shop</h2>
+            </div>
+            <!-- Main navigation links -->
+            <ul class="nav-links">
+                <li><a href="home.html" class="active">Home</a></li>
+                <li><a href="products.html">Offer/Sale</a></li>
+                <li><a href="cart.html">Cart</a></li>
+                <li><a href="news.html">News</a></li>
+                <li><a href="library.html">Library</a></li>
+                <li><a href="index.html">My Side</a></li>
+                <li><a href="index.html">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- MAIN CONTENT: Homepage content with game showcase sections -->
+    <main>
+        <!-- Home section container displaying trending and free games -->
+        <section class="home-section">
+            <!-- Header area with shop title and Steam logo branding -->
+            <div class="home-header">
+                <!-- Shop title with gradient styling -->
+                <h2 class="shop-title">Ironvow Shop</h2>
+                <!-- Steam logo image -->
+                <img src="steam.svg" alt="Steam Logo" style="height: 80px; width: auto;">
+            </div>
+
+            <!-- TRENDING GAMES SECTION: Most popular paid games -->
+            <!-- This section displays the currently trending games that users are interested in -->
+            <!-- Uses class "section-label" which styles this as a prominent section header -->
+            <div class="section-label">TRENDING GAMES</div>
+            
+            <!-- Grid layout for displaying trending game items -->
+            <!-- Uses "sale-grid" class which creates a responsive CSS Grid layout with auto-fill -->
+            <!-- Each game card has an image placeholder, title, and price displayed below -->
+            <!-- Grid columns automatically resize based on screen width, minimum 250px per item -->
+            <div class="sale-grid">
+                <!-- Individual game card item 1: Elden Ring -->
+                <!-- Container uses "sale-item" class with flex layout for card styling -->
+                <!-- Includes hover effect that lifts the card and adds shadow -->
+                <div class="sale-item">
+                    <!-- Game image placeholder with gradient background and gaming emoji -->
+                    <!-- Height: 200px, shows decorative game controller emoji at 30% opacity -->
+                    <div class="sale-box"></div>
+                    <!-- Game title displayed below the image box -->
+                    <!-- Uses "game-name" class with white color and bold font weight -->
+                    <p class="game-name">Elden Ring</p>
+                    <!-- Game price displayed at bottom of card -->
+                    <!-- Uses "sale-price" class with accent orange color and large font size -->
+                    <p class="sale-price">$59.99</p>
+                </div>
+                <!-- Individual game card item 2: Cyberpunk 2077 -->
+                <div class="sale-item">
+                    <div class="sale-box"></div>
+                    <p class="game-name">Cyberpunk 2077</p>
+                    <p class="sale-price">$49.99</p>
+                </div>
+                <!-- Individual game card item 3: Baldur's Gate 3 -->
+                <div class="sale-item">
+                    <div class="sale-box"></div>
+                    <p class="game-name">Baldur's Gate 3</p>
+                    <p class="sale-price">$59.99</p>
+                </div>
+                <!-- Individual game card item 4: Starfield -->
+                <div class="sale-item">
+                    <div class="sale-box"></div>
+                    <p class="game-name">Starfield</p>
+                    <p class="sale-price">$69.99</p>
+                </div>
+                <!-- Individual game card item 5: Dragon Age -->
+                <div class="sale-item">
+                    <div class="sale-box"></div>
+                    <p class="game-name">Dragon Age</p>
+                    <p class="sale-price">$59.99</p>
+                </div>
+                <!-- Individual game card item 6: S.T.A.L.K.E.R 2 -->
+                <div class="sale-item">
+                    <div class="sale-box"></div>
+                    <p class="game-name">S.T.A.L.K.E.R 2</p>
+                    <p class="sale-price">$64.99</p>
+                </div>
+                <!-- Individual game card item 7: The Witcher 3 -->
+                <div class="sale-item">
+                    <div class="sale-box"></div>
+                    <p class="game-name">The Witcher 3</p>
+                    <p class="sale-price">$39.99</p>
+                </div>
+                <!-- Individual game card item 8: Metaphor: ReFantazio -->
+                <div class="sale-item">
+                    <div class="sale-box"></div>
+                    <p class="game-name">Metaphor: ReFantazio</p>
+                    <p class="sale-price">$54.99</p>
+                </div>
+                <!-- Individual game card item 9: Final Fantasy XVI -->
+                <div class="sale-item">
+                    <div class="sale-box"></div>
+                    <p class="game-name">Final Fantasy XVI</p>
+                    <p class="sale-price">$49.99</p>
+                </div>
+                <!-- Individual game card item 10: Tekken 8 -->
+                <div class="sale-item">
+                    <div class="sale-box"></div>
+                    <p class="game-name">Tekken 8</p>
+                    <p class="sale-price">$49.99</p>
+                </div>
+                <!-- Individual game card item 11: Street Fighter 6 -->
+                <div class="sale-item">
+                    <div class="sale-box"></div>
+                    <p class="game-name">Street Fighter 6</p>
+                    <p class="sale-price">$44.99</p>
+                </div>
+                <!-- Individual game card item 12: Dragon's Dogma 2 -->
+                <div class="sale-item">
+                    <div class="sale-box"></div>
+                    <p class="game-name">Dragon's Dogma 2</p>
+                    <p class="sale-price">$49.99</p>
+                </div>
+            </div>
+
+            <!-- TOP FREE GAMES SECTION: Popular free-to-play games -->
+            <!-- This section showcases the most popular free gaming titles available on the platform -->
+            <!-- Users can discover new free games without any purchase commitment -->
+            <!-- Uses the same grid layout as trending games for visual consistency -->
+            <div class="section-label">TOP FREE GAMES</div>
+            
+            <!-- Grid layout for displaying free game items -->
+            <!-- Same "sale-grid" class creates responsive layout with 250px minimum width per card -->
+            <!-- Displays price as "FREE" instead of a dollar amount -->
+            <div class="sale-grid">
+                <!-- Individual free game card 1: Apex Legends - Battle Royale shooter -->
+                <div class="sale-item">
+                    <div class="sale-box"></div>
+                    <p class="game-name">Apex Legends</p>
+                    <p class="sale-price">FREE</p>
+                </div>
+                <!-- Individual free game card 2: Dota 2 - MOBA strategy game -->
+                <div class="sale-item">
+                    <div class="sale-box"></div>
+                    <p class="game-name">Dota 2</p>
+                    <p class="sale-price">FREE</p>
+                </div>
+                <!-- Individual free game card 3: Team Fortress 2 - Multiplayer FPS -->
+                <div class="sale-item">
+                    <div class="sale-box"></div>
+                    <p class="game-name">Team Fortress 2</p>
+                    <p class="sale-price">FREE</p>
+                </div>
+                <!-- Individual free game card 4: Warframe - Co-op action game -->
+                <div class="sale-item">
+                    <div class="sale-box"></div>
+                    <p class="game-name">Warframe</p>
+                    <p class="sale-price">FREE</p>
+                </div>
+                <!-- Individual free game card 5: Lost Ark - MMORPG action game -->
+                <div class="sale-item">
+                    <div class="sale-box"></div>
+                    <p class="game-name">Lost Ark</p>
+                    <p class="sale-price">FREE</p>
+                </div>
+                <!-- Individual free game card 6: Path of Exile 2 - Action RPG -->
+                <div class="sale-item">
+                    <div class="sale-box"></div>
+                    <p class="game-name">Path of Exile 2</p>
+                    <p class="sale-price">FREE</p>
+                </div>
+                <!-- Individual free game card 7: Counter-Strike 2 - Tactical FPS -->
+                <div class="sale-item">
+                    <div class="sale-box"></div>
+                    <p class="game-name">Counter-Strike 2</p>
+                    <p class="sale-price">FREE</p>
+                </div>
+                <!-- Individual free game card 8: Valorant - Competitive tactical shooter -->
+                <div class="sale-item">
+                    <div class="sale-box"></div>
+                    <p class="game-name">Valorant</p>
+                    <p class="sale-price">FREE</p>
+                </div>
+                <!-- Individual free game card 9: League of Legends - Popular MOBA -->
+                <div class="sale-item">
+                    <div class="sale-box"></div>
+                    <p class="game-name">League of Legends</p>
+                    <p class="sale-price">FREE</p>
+                </div>
+                <!-- Individual free game card 10: New World - MMO adventure game -->
+                <div class="sale-item">
+                    <div class="sale-box"></div>
+                    <p class="game-name">New World</p>
+                    <p class="sale-price">FREE</p>
+                </div>
+                <!-- Individual free game card 11: Albion Online - Open-world MMO -->
+                <div class="sale-item">
+                    <div class="sale-box"></div>
+                    <p class="game-name">Albion Online</p>
+                    <p class="sale-price">FREE</p>
+                </div>
+                <!-- Individual free game card 12: Tera - Fantasy action MMO -->
+                <div class="sale-item">
+                    <div class="sale-box"></div>
+                    <p class="game-name">Tera</p>
+                    <p class="sale-price">FREE</p>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- FOOTER: Copyright and site information -->
+    <footer>
+        <!-- Copyright notice -->
+        <p>&copy; 2026 Ironvow Shop. All rights reserved.</p>
+    </footer>
+</body>
+</html>

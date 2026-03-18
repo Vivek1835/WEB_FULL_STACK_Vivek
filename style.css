@@ -1,0 +1,1006 @@
+/* ===================================================================
+   GLOBAL STYLES & VARIABLES
+   This section defines the color scheme, typography, and layout
+   foundation used throughout the entire website. All colors are
+   stored as CSS custom properties (variables) for easy maintenance.
+   =================================================================== */
+
+/* Logo image sizing - used for shop logo in navbar and favicon */
+/* All logo images are scaled to 120px width while maintaining aspect ratio */
+.img {
+    width: 120px;                    /* Fixed width for consistency */
+    height: auto;                    /* Auto height preserves image aspect ratio */
+}
+
+/* ROOT VARIABLES: Primary color definitions used site-wide */
+/* These CSS custom properties store all colors and are referenced throughout */
+/* To change the site color scheme, update these variables */
+:root {
+    /* Background gradient colors for main page background */
+    --background-start: #16191f;     /* Dark navy blue - gradient start color */
+    --background-end: #2d323e;       /* Lighter slate gray - gradient end color */
+    
+    /* Text color variables */
+    --text-primary: #f4f2f3;         /* Off-white - main text color for readability */
+    --text-secondary: #999da3;       /* Medium gray - secondary/muted text */
+    
+    /* Accent color for buttons, links, and highlights */
+    --accent-primary: #e49778;       /* Warm orange - primary accent color */
+    --accent-primary-hover: #c9775d; /* Darker orange - hover state for buttons */
+    
+    /* Surface/container background colors with transparency */
+    --surface-1: rgba(53, 56, 68, 0.5);           /* Semi-transparent surface for cards */
+    --surface-2: rgba(0, 0, 0, 0.7);              /* Darker semi-transparent surface */
+    
+    /* Border color - used for subtle dividing lines */
+    --border-color: rgba(177, 175, 174, 0.15);    /* Very subtle tan border */
+    
+    /* Text color to use on top of accent backgrounds for contrast */
+    --text-on-accent: #16191f;       /* Dark text on orange accent for readability */
+}
+
+/* PRIMARY IMAGE STYLING (duplicate rule, but kept for consistency) */
+/* All images across site should follow this sizing convention */
+.img {
+    width: 120px;                    /* Fixed width for logo consistency */
+    height: auto;                    /* Preserve aspect ratio */
+}
+
+/* BODY AND PAGE DEFAULT STYLES */
+/* Applied to the entire page content area */
+body {
+    margin: 0;                       /* Remove browser default margins */
+    padding: 0;                      /* Remove browser default padding */
+    /* Cross-browser compatible font stack - tries system fonts first for performance */
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: var(--text-primary);      /* Use primary text color from variables */
+    /* Diagonal gradient background from top-left to bottom-right */
+    background: linear-gradient(135deg, var(--background-start) 0%, var(--background-end) 100%);
+    min-height: 100vh;               /* Ensure page fills at least full viewport height */
+}
+
+/* LAYOUT HELPERS */
+/* Generic section spacing class for consistent vertical rhythm */
+.section {
+    padding: 3rem 0;                 /* 3rem top/bottom padding for sections, no left/right */
+}
+
+/* ===================================================================
+   NAVBAR / HEADER NAVIGATION
+   Sticky navigation bar that stays at top of page while scrolling
+   Contains logo and links to all main pages
+   =================================================================== */
+
+/* NAVBAR CONTAINER */
+/* Horizontal flex container for logo and navigation links */
+.navbar {
+    display: flex;                   /* Flexbox layout for horizontal alignment */
+    justify-content: space-between;  /* Space between logo (left) and links (right) */
+    align-items: center;             /* Vertically center all items */
+    background: var(--surface-2);    /* Semi-transparent dark background */
+    border-bottom: 1px solid var(--border-color); /* Subtle bottom border separator */
+    padding: 1rem 1.5rem;            /* Internal spacing around navbar content */
+    position: sticky;                /* Stick to top when scrolling */
+    top: 0;                          /* Distance from top when scrolled */
+    z-index: 10;                     /* Ensure navbar stays above page content */
+}
+
+/* LOGO SECTION */
+/* Left side of navbar containing logo image and shop name */
+.logo {
+    display: flex;                   /* Flexbox for horizontal layout */
+    align-items: center;             /* Vertically center logo and text */
+    gap: 0.75rem;                    /* Space between logo image and text */
+}
+
+/* LOGO HEADING TEXT */
+/* Shop name displayed next to logo image */
+.logo h2 {
+    color: var(--accent-primary);    /* Use accent orange color */
+    margin: 0;                       /* Remove default heading margins */
+    font-size: 1.4rem;               /* Larger font for prominence */
+    letter-spacing: 1px;             /* Add space between letters for style */
+}
+
+/* NAVIGATION LINKS CONTAINER */
+/* List of navigation menu items */
+.nav-links {
+    list-style: none;                /* Remove default bullet styling */
+    display: flex;                   /* Flexbox for horizontal layout */
+    gap: 1rem;                       /* Space between each nav link */
+    margin: 0;                       /* Remove default list margins */
+    padding: 0;                      /* Remove default list padding */
+}
+
+/* NAVIGATION LINK STYLING */
+/* Individual navigation menu link */
+.nav-links a {
+    color: var(--text-primary);      /* Primary text color */
+    text-decoration: none;           /* Remove underline from links */
+    padding: 0.5rem 0.75rem;         /* Internal link padding for click area */
+    border-radius: 999px;            /* Pill-shaped background when hovered */
+    transition: background 0.2s, color 0.2s; /* Smooth color animation on hover */
+}
+
+/* NAVIGATION LINK HOVER STATE */
+/* Styling when mouse hovers over a navigation link */
+.nav-links a:hover {
+    background: rgba(228, 151, 120, 0.15); /* Light orange background tint */
+    color: var(--accent-primary);    /* Change text to accent orange */
+}
+
+/* NAVIGATION LINK ACTIVE STATE */
+/* Styling for current page link in navigation */
+.nav-links a.active {
+    background: var(--accent-primary); /* Solid accent orange background */
+    color: var(--text-on-accent);    /* Dark text for contrast on orange */
+}
+
+
+
+/* ===================================================================
+   HOME PAGE STYLES
+   =================================================================== */
+
+/* Home section layout */
+.home-section {
+    padding: 1.5rem;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+/* HOME PAGE HEADER CONTAINER */
+/* Top section of homepage with title and branding logo */
+.home-header {
+    display: flex;                   /* Flexbox for side-by-side layout */
+    justify-content: space-between;  /* Title on left, logo on right */
+    align-items: center;             /* Vertically center content */
+    margin-bottom: 1.5rem;           /* Space below header before game sections */
+    background-color: var(--surface-1); /* Semi-transparent background surface */
+    padding: 1rem;                   /* Internal spacing around content */
+    border-radius: 4px;              /* Slightly rounded corners */
+}
+
+/* HOME PAGE HEADING (FALLBACK - NOT USED, see .shop-title below) */
+.home-header h2 {
+    margin: 0;                       /* Remove default heading margin */
+    color: var(--text-primary);      /* Use primary text color */
+    font-size: 1.3rem;               /* Standard heading size */
+}
+
+/* SHOP TITLE - THE MAIN BRANDING TEXT */
+/* Large styled "Ironvow Shop" text on homepage header */
+/* This is the primary brand name displayed prominently */
+.shop-title {
+    color: var(--accent-primary);    /* Warm orange accent color */
+    font-size: 2.5rem !important;    /* Large prominent size (forcing with !important) */
+    font-weight: 900 !important;     /* Extra bold weight (force with !important) */
+    letter-spacing: 2px;             /* Extra space between letters for style */
+    text-shadow: 0 0 20px rgba(228, 151, 120, 0.5); /* Glowing shadow effect */
+    margin: 0;                       /* Remove default heading margins */
+}
+
+/* LOGO PLACEHOLDER (LEGACY) */
+/* Styling for placeholder element before actual logo was added */
+.logo-placeholder {
+    background-color: #333;          /* Dark gray background */
+    color: #fff;                     /* White text */
+    padding: 0.5rem 1rem;            /* Internal padding */
+    border-radius: 4px;              /* Slightly rounded corners */
+}
+
+/* SECTION LABEL - CATEGORY HEADERS */
+/* Headers for game sections like "TRENDING GAMES" and "TOP FREE GAMES" */
+.section-label {
+    margin-top: 1.5rem;              /* Space above label */
+    margin-bottom: 0.8rem;           /* Space below label */
+    font-weight: 600;                /* Semi-bold weight */
+    color: var(--text-secondary);    /* Gray text color */
+}
+
+/* HORIZONTAL BOX ROW - OLD LAYOUT (LEGACY) */
+/* Previous layout system using flexbox rows instead of CSS Grid */
+.box-row {
+    display: flex;                   /* Flexbox for horizontal layout */
+    gap: 0.8rem;                     /* Space between items */
+    margin-bottom: 1rem;             /* Space below row */
+    flex-wrap: wrap;                 /* Allow items to wrap on small screens */
+}
+
+.green-box {
+    flex: 1;
+    min-width: 80px;
+    height: 80px;
+    background-color: var(--accent-primary);
+    border-radius: 6px;
+}
+
+.game-box {
+    flex: 1;
+    min-width: 80px;
+    height: 80px;
+    background-color: var(--accent-primary);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.8rem;
+}
+
+.box-title {
+    color: var(--text-on-accent);
+    font-weight: bold;
+    font-size: 0.85rem;
+    text-align: center;
+    word-break: break-word;
+}
+
+.nav-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin: 1.5rem 0;
+    flex-wrap: wrap;
+}
+
+.tab {
+    flex: 1;
+    min-width: 80px;
+    padding: 0.6rem 1rem;
+    background-color: #4a90e2;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 999px;
+    transition: background 0.2s;
+    font-size: 0.9rem;
+}
+
+.tab:hover {
+    background-color: #3a7bc8;
+}
+
+.tab.active {
+    background-color: #2e5fb8;
+}
+
+.sale-banner {
+    background-color: rgba(255, 100, 100, 0.3);
+    padding: 1rem;
+    text-align: center;
+    margin: 1.5rem 0;
+    border-radius: 4px;
+}
+
+.sale-banner p {
+    margin: 0;
+    color: var(--text-primary);
+}
+
+.box-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    padding: 4rem 2rem;    
+    background: var(--surface-1);
+}
+
+.hero h1 {
+    font-size: 3em;
+    margin-bottom: 1rem;
+    color: var(--accent-primary);
+    text-shadow: 0 0 20px var(--accent-primary);
+}
+
+.hero p {
+    font-size: 1.2em;
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: var(--accent-primary);
+    color: var(--text-on-accent);
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    font-weight: bold;
+}
+
+.btn:hover {
+    background-color: var(--accent-primary-hover);
+}
+
+/* Featured Section */
+.featured {
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.featured h2 {
+    font-size: 2.5em;
+    margin-bottom: 2rem;
+    color: var(--accent-primary);
+    text-shadow: 0 0 10px var(--accent-primary);
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.product-card {
+    background-color: var(--surface-2);
+    border-radius: 10px;
+    padding: 1rem;
+    box-shadow: 0 0 20px rgba(228, 151, 120, 0.2); /* accent-primary with alpha */
+    transition: transform 0.3s;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+.product-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.product-card h3 {
+    margin: 1rem 0 0.5rem 0;
+    color: var(--accent-primary);
+}
+
+.product-card p {
+    font-size: 1.2em;
+    margin-bottom: 1rem;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 2rem;
+    background-color: var(--background-start);
+    color: var(--text-secondary);
+}
+
+
+
+/* ===================================================================
+   ABOUT & CONTACT PAGE STYLES
+   =================================================================== */
+
+/* About and Contact */
+.about, .contact {
+    padding: 4rem 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.about h1, .contact h1 {
+    color: var(--accent-primary);
+    text-shadow: 0 0 10px var(--accent-primary);
+    margin-bottom: 2rem;
+}
+
+.about ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.about li {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.about li::before {
+    content: '›';
+    color: var(--accent-primary);
+    position: absolute;
+    left: 0;
+}
+
+.contact-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.info-item {
+    text-align: center;
+}
+
+.info-item h3 {
+    color: var(--accent-primary);
+    margin-bottom: 0.5rem;
+}
+
+.contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--surface-1);
+    border-radius: 5px;
+    background-color: var(--background-start);
+    color: var(--text-primary);
+    font-size: 1em;
+    resize: vertical;
+}
+
+.contact-form textarea:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 5px var(--accent-primary);
+}
+
+/* Cart / Billing */
+.cart {
+    padding: 4rem 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.cart h1 {
+    color: var(--accent-primary);
+    text-shadow: 0 0 10px var(--accent-primary);
+    margin-bottom: 2rem;
+}
+
+/* CART PAGE STYLES */
+.cart-section {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.cart-header {
+    font-size: 1.8rem;
+    color: var(--text-primary);
+    margin-bottom: 2rem;
+    text-align: left;
+}
+
+
+
+/* ===================================================================
+   PRODUCTS/OFFERS PAGE STYLES (PRODUCT GRID & SALE ITEMS)
+   =================================================================== */
+
+/* Products Section */
+.cart-layout {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.cart-list-side {
+    flex: 1;
+    background: var(--surface-1);
+    padding: 1.5rem;
+    border-radius: 8px;
+    min-height: 300px;
+}
+
+.game-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.game-item {
+    color: var(--accent-primary);
+    font-size: 0.95rem;
+    padding: 0.5rem;
+    border-bottom: 1px dashed var(--accent-primary);
+}
+
+.dashed-lines {
+    height: 20px;
+    border-bottom: 2px dashed var(--accent-primary);
+    margin: 0.3rem 0;
+}
+
+.cart-total-side {
+    flex: 1;
+}
+
+.description-box {
+    background: var(--surface-1);
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+.description-box p {
+    margin: 0.4rem 0;
+}
+
+.total-box {
+    background: var(--accent-primary);
+    color: var(--text-on-accent);
+    padding: 1.5rem;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.cart-products {
+    background: var(--surface-1);
+    padding: 2rem;
+    border-radius: 8px;
+}
+
+.product-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.product-box {
+    background: var(--accent-primary);
+    height: 100px;
+    border-radius: 4px;
+}
+
+.product-descriptions {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    text-align: center;
+}
+
+.product-desc {
+    color: var(--accent-primary);
+    font-size: 0.9rem;
+}
+
+#checkout-btn {
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.products-section {
+    padding: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.products-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--surface-1);
+    padding: 1rem;
+    border-radius: 4px;
+    font-size: 1.3rem;
+    color: var(--text-primary);
+    margin-bottom: 2rem;
+}
+
+.sale-grid {
+    /* CSS Grid layout system for displaying game cards */
+    /* auto-fill: automatically creates as many columns as fit in container */
+    /* minmax(250px, 1fr): each column minimum 250px, grows equally to fill space */
+    /* This prevents single items from stretching to full width */
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 2rem;                       /* Space between grid items */
+    margin-bottom: 3rem;             /* Space below entire grid section */
+}
+
+/* GAME CARD ITEM CONTAINER */
+/* Each individual game card displayed in the grid */
+.sale-item {
+    background: var(--surface-2);    /* Semi-transparent dark background */
+    border-radius: 8px;              /* Rounded corners for modern look */
+    /* Smooth animation on hover for transform and shadow changes */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    overflow: hidden;                /* Hide content that exceeds rounded borders */
+    display: flex;                   /* Flexbox for vertical layout */
+    flex-direction: column;           /* Stack children vertically */
+}
+
+/* GAME CARD HOVER STATE */
+/* Animation when mouse hovers over card */
+.sale-item:hover {
+    transform: translateY(-5px);     /* Lift card up by 5 pixels */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4); /* Add shadow for 3D effect */
+}
+
+/* GAME IMAGE BOX */
+/* Visual placeholder for game cover image */
+.sale-box {
+    /* Diagonal gradient from top-left to bottom-right */
+    background: linear-gradient(135deg, var(--surface-1) 0%, var(--background-start) 100%);
+    height: 200px;                   /* Fixed height for uniform card appearance */
+    position: relative;              /* Position context for emoji :before */
+}
+
+/* GAME IMAGE BOX EMOJI DECORATION */
+/* Decorative game controller emoji in the background */
+.sale-box::before {
+    content: '🎮';                   /* Display game controller emoji */
+    position: absolute;              /* Position over the gradient background */
+    top: 50%;                        /* Center vertically */
+    left: 50%;                       /* Center horizontally */
+    transform: translate(-50%, -50%); /* Offset to true center */
+    font-size: 3rem;                 /* Large emoji size */
+    opacity: 0.3;                    /* Semi-transparent so not distracting */
+}
+
+/* GAME NAME TEXT */
+/* Title of the game displayed below image */
+.game-name {
+    color: var(--text-primary);      /* Primary text color */
+    font-size: 1.1rem;               /* Larger font for readability */
+    font-weight: 700;                /* Bold weight for prominence */
+    line-height: 1.3;                /* Better line spacing for readability */
+    margin: 1rem 1.2rem 0.5rem 1.2rem; /* Padding inside card around text */
+    flex-grow: 1;                    /* Expands to push price to bottom */
+}
+
+/* GAME PRICE TEXT */
+/* Price displayed at bottom of card */
+.sale-price {
+    color: var(--accent-primary);    /* Orange accent color */
+    font-size: 1.2rem;               /* Large font for prominence */
+    font-weight: 800;                /* Extra heavy weight for emphasis */
+    margin: 0 1.2rem 1.2rem 1.2rem;  /* Padding inside card, more space at bottom */
+}
+
+
+
+/* ===================================================================
+   PRODUCTS/OFFER PAGE STYLES
+   =================================================================== */
+
+/* Login/Signup Page Styles */
+/* This container rule seems to be for a specific page layout, like login */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: var(--surface-2);
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(228, 151, 120, 0.3); /* accent-primary with alpha */
+    width: 400px;
+    text-align: center;
+}
+
+.container h1 {
+    color: #00ff00;
+    margin-bottom: 30px;
+    font-size: 2em;
+    text-shadow: 0 0 10px var(--accent-primary);
+}
+
+.tab-buttons {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.tab-button {
+    flex: 1;
+    padding: 10px;
+    background-color: var(--surface-1);
+    border: none;
+    color: var(--text-primary);
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color 0.3s;
+}
+
+.tab-button.active {
+    background-color: var(--accent-primary);
+    color: var(--text-on-accent);
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--text-secondary);
+}
+
+.form-group input[type="text"], .form-group input[type="email"], .form-group input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--surface-1);
+    border-radius: 5px;
+    background-color: var(--background-start);
+    color: var(--text-primary);
+    font-size: 1em;
+}
+
+.form-group input[type="text"]:focus, .form-group input[type="email"]:focus, .form-group input[type="password"]:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 5px var(--accent-primary);
+}
+
+.container button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--accent-primary);
+    border: none;
+    border-radius: 5px;
+    color: var(--text-on-accent);
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.container button[type="submit"]:hover {
+    background-color: var(--accent-primary-hover);
+}
+
+.switch-link {
+    margin-top: 20px;
+    color: #ccc;
+}
+
+.switch-link a {
+    color: var(--accent-primary);
+    text-decoration: none;
+}
+
+.switch-link a:hover {
+    text-decoration: underline;
+}
+
+
+
+/* ===================================================================
+   NEWS PAGE STYLES
+   =================================================================== */
+
+/* News Page */
+.news-page {
+    padding: 4rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* NEWS PAGE STYLES */
+.news-section {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.news-page-header {
+    font-size: 1.8rem;
+    color: var(--text-primary);
+    margin-bottom: 2rem;
+    text-align: left;
+}
+
+.news-boxes-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1.5rem;
+}
+
+.news-item {
+    text-align: center;
+}
+
+.news-box {
+    background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+    height: 120px;
+    border-radius: 8px;
+    margin-bottom: 0.8rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.news-box::before {
+    content: '📰';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2rem;
+    opacity: 0.8;
+}
+
+.news-description {
+    color: var(--accent-primary);
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+
+
+/* ===================================================================
+   ACCOUNT / MY SIDE PAGE STYLES
+   =================================================================== */
+
+/* Account Page */
+
+/* ACCOUNT / MY SIDE PAGE STYLES */
+.account-section {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.account-header {
+    font-size: 1.8rem;
+    color: var(--accent-primary);
+    margin-bottom: 2rem;
+    text-align: left;
+}
+
+.account-container {
+    display: flex;
+    gap: 2rem;    
+    background: var(--surface-1);
+    padding: 2rem;
+    border-radius: 8px;
+}
+
+.account-menu {
+    width: 220px;
+    flex-shrink: 0;
+}
+
+.menu-section {
+    color: var(--accent-primary);
+    font-weight: bold;
+    margin-bottom: 1rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--accent-primary);
+}
+
+.menu-link {
+    color: var(--text-primary);
+    padding: 0.6rem 0;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.menu-link:hover {
+    color: var(--accent-primary);
+}
+
+.account-content {
+    flex: 1;
+}
+
+.profile-section {
+    display: flex;
+    gap: 2rem;
+}
+
+.profile-avatar {
+    width: 120px;
+    height: 120px;
+    background: var(--surface-1);
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.profile-details {
+    flex: 1;
+    color: var(--text-primary);
+}
+
+.profile-details p {
+    margin: 0.8rem 0;
+}
+
+.profile-details strong {
+    color: var(--accent-primary);
+}
+
+/* Library Page */
+/* LIBRARY PAGE STYLES */
+.library-section {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.library-page-header {
+    font-size: 1.8rem;
+    color: var(--text-primary);
+    margin-bottom: 2rem;
+    text-align: left;
+}
+
+.library-layout {
+    display: flex;
+    gap: 2rem;
+}
+
+.library-games-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.library-game-box {
+    background: var(--accent-primary);
+    height: 100px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.8rem;
+}
+
+.game-label {
+    color: var(--text-on-accent);
+    font-weight: bold;
+    font-size: 0.9rem;
+    text-align: center;
+    word-break: break-word;
+}
+
+.library-detail-panel {
+    flex: 1;
+    background: var(--surface-1);
+    padding: 1.5rem;
+    border-radius: 8px;
+}
+
+.detail-header {
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--accent-primary);
+    padding-bottom: 0.8rem;
+}
+
+.detail-header h3 {
+    margin: 0;
+    color: var(--accent-primary);
+}
+
+.detail-content {
+    color: var(--text-primary);
+    font-size: 0.95rem;
+}
+
+.detail-content p {
+    margin: 0.6rem 0;
+}
+
+.detail-content strong {
+    color: var(--accent-primary);
+}

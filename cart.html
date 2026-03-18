@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- ===================================================================
+     CART PAGE
+     =================================================================== -->
+<head>
+    <!-- Meta tags for character encoding and viewport settings -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart - Ironvow Shop</title>
+    <!-- Link to main stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Custom favicon for the browser tab -->
+    <link rel="icon" href="Game store logo.svg" type="image/svg+xml">
+</head>
+<body>
+    <!-- HEADER: Navigation bar with logo and main menu links -->
+    <header>
+        <!-- Navigation bar with logo and links -->
+        <nav class="navbar">
+            <!-- Logo section with shop icon and name -->
+            <div class="logo">
+                <!-- Shop logo image -->
+                <img src="Game store logo.svg" alt="Ironvow Shop Logo" class="img">
+                <!-- Shop name/title -->
+                <h2>Ironvow Shop</h2>
+            </div>
+            <!-- Main navigation links -->
+            <ul class="nav-links">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="products.html">Offer/Sale</a></li>
+                <li><a href="cart.html" class="active">Cart</a></li>
+                <li><a href="news.html">News</a></li>
+                <li><a href="library.html">Library</a></li>
+                <li><a href="myside.html">My Side</a></li>
+                <li><a href="index.html">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- MAIN CONTENT: Shopping cart with items and checkout -->
+    <main>
+        <!-- Cart section container for displaying items and billing -->
+        <section class="cart-section">
+            <!-- Cart page header title -->
+            <h2 class="cart-header">Website name</h2>
+
+            <!-- Cart layout: items on left, billing on right -->
+            <div class="cart-layout">
+                <div class="cart-list-side">
+                    <div class="game-list">
+                        <div class="game-item">Elden Ring - $49.99</div>
+                        <div class="game-item">Cyberpunk 2077 - $29.99</div>
+                        <div class="game-item">Baldur's Gate 3 - $44.99</div>
+                        <div class="game-item">Starfield - $39.99</div>
+                        <div class="game-item">The Witcher 3 - $19.99</div>
+                    </div>
+                </div>
+
+                <div class="cart-total-side">
+                    <div class="description-box">
+                        <p><strong>Subtotal:</strong> $184.95</p>
+                        <p><strong>Discount:</strong> -$20.00</p>
+                        <p><strong>Tax:</strong> $13.18</p>
+                        <p><strong>Shipping:</strong> Free</p>
+                        <p style="border-top: 1px solid #00ff00; padding-top: 0.8rem; margin-top: 0.8rem;"></p>
+                    </div>
+                    <div class="total-box">
+                        <p><strong>TOTAL: $178.13</strong></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cart-products">
+                <div class="product-row">
+                    <div class="product-box"></div>
+                    <div class="product-box"></div>
+                    <div class="product-box"></div>
+                </div>
+                <div class="product-descriptions">
+                    <div class="product-desc">-----------</div>
+                    <div class="product-desc">-----------</div>
+                    <div class="product-desc">-----------</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER: Copyright and site information -->
+    <footer>
+        <!-- Copyright notice -->
+        <p>&copy; 2026 Ironvow Shop. All rights reserved.</p>
+    </footer>
+
+    <!-- JAVASCRIPT: Cart management and checkout functionality -->
+    <script>
+        // Initialize cart from browser localStorage or empty array
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        // Get DOM element for displaying cart items
+        const cartItems = document.getElementById('cart-items');
+        // Get DOM element for displaying subtotal price
+        const totalSpan = document.getElementById('total');
+        // Get DOM element for displaying shipping cost
+        const shippingSpan = document.getElementById('shipping');
+        // Get DOM element for displaying grand total price
+        const grandTotalSpan = document.getElementById('grand-total');
+
+        // Define shipping cost constant
+        const SHIPPING_COST = 5.00;
+
+        // Function to refresh cart display with current items and prices
+        function updateCart() {
+            cartItems.innerHTML = '';
+            let subtotal = 0;
+
+            // Display empty cart message if no items
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p>Your cart is empty. <a href="products.html">Start shopping!</a></p>';
+            } else {
+                // Loop through each item and create display row
+                cart.forEach((item, index) => {
+                    const itemRow = document.createElement('div');
+                    itemRow.className = 'cart-item';
+                    itemRow.innerHTML = `
+                        <div class="item-info">
+                            <div class="item-name">${item.name}</div>
+                            <div class="item-price">$${parseFloat(item.price).toFixed(2)}</div>
+                        </div>
+                        <div class="item-actions">
+                            <button class="remove-btn" onclick="removeFromCart(${index})">Remove</button>
+                        </div>
+                    `;
+
+                    cartItems.appendChild(itemRow);
+                    subtotal += parseFloat(item.price);
+                });
+            }
+
+            // Calculate grand total and update display
+            const grandTotal = subtotal + SHIPPING_COST;
+            totalSpan.textContent = subtotal.toFixed(2);
+            shippingSpan.textContent = SHIPPING_COST.toFixed(2);
+            grandTotalSpan.textContent = grandTotal.toFixed(2);
+
+            // Save updated cart to browser storage
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+
+        // Function to remove item from cart by index
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCart();
+        }
+
+        // Checkout button event handler
+        document.getElementById('checkout-btn').addEventListener('click', () => {
+            if (cart.length > 0) {
+                alert('Checkout functionality would be implemented here!');
+            } else {
+                alert('Your cart is empty!');
+            }
+        });
+
+        // Initial cart display on page load
+        updateCart();
+    </script>
+</body>
+</html>

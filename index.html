@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- ===================================================================
+     LOGIN / SIGNUP PAGE
+     =================================================================== -->
+<head>
+    <!-- Meta tags for character encoding and viewport settings -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login/Signup - Ironvow Shop</title>
+    <!-- Link to main stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Custom favicon for the browser tab -->
+    <link rel="icon" href="Game store logo.svg" type="image/svg+xml">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="Game store logo.svg" alt="Ironvow Shop Logo" class="img">
+                <h2>Ironvow Shop</h2>
+            </div>
+            <ul class="nav-links">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="products.html">Offer/Sale</a></li>
+                <li><a href="cart.html">Cart</a></li>
+                <li><a href="news.html">News</a></li>
+                <li><a href="library.html">Library</a></li>
+                <li><a href="myside.html">My Side</a></li>
+                <li><a href="index.html">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Welcome to Ironvow Shop</h1>
+        <div class="tab-buttons">
+            <button class="tab-button active" onclick="showLogin()">Login</button>
+            <button class="tab-button" onclick="showSignup()">Sign Up</button>
+        </div>
+        
+        <form id="login-form" class="form-container" action="/login" method="post">
+            <div class="form-group">
+                <label for="login-email">Email</label>
+                <input type="email" id="login-email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="login-password">Password</label>
+                <input type="password" id="login-password" name="password" required>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+        
+        <form id="signup-form" class="form-container" style="display: none;" action="/signup" method="post">
+            <div class="form-group">
+                <label for="signup-username">Username</label>
+                <input type="text" id="signup-username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="signup-email">Email</label>
+                <input type="email" id="signup-email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="signup-password">Password</label>
+                <input type="password" id="signup-password" name="password" required>
+            </div>
+            <button type="submit">Sign Up</button>
+        </form>
+        
+        <div class="switch-link">
+            <p>New to Ironvow? <a href="#" onclick="showSignup()">Create an account</a></p>
+            <p>Already have an account? <a href="#" onclick="showLogin()">Login here</a></p>
+        </div>
+    </div>
+
+    <script>
+        function showLogin() {
+            document.getElementById('login-form').style.display = 'block';
+            document.getElementById('signup-form').style.display = 'none';
+            document.querySelectorAll('.tab-button')[0].classList.add('active');
+            document.querySelectorAll('.tab-button')[1].classList.remove('active');
+        }
+
+        function showSignup() {
+            document.getElementById('login-form').style.display = 'none';
+            document.getElementById('signup-form').style.display = 'block';
+            document.querySelectorAll('.tab-button')[0].classList.remove('active');
+            document.querySelectorAll('.tab-button')[1].classList.add('active');
+        }
+    </script>
+</body>
+</html>

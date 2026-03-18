@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- ===================================================================
+     PRODUCTS / OFFER PAGE
+     =================================================================== -->
+<head>
+    <!-- Meta tags for character encoding and viewport settings -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - Ironvow Shop</title>
+    <!-- Link to main stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Custom favicon for the browser tab -->
+    <link rel="icon" href="Game store logo.svg" type="image/svg+xml">
+</head>
+<body>
+    <!-- HEADER: Navigation bar with logo and main menu links -->
+    <header>
+        <!-- Navigation bar with logo and links -->
+        <nav class="navbar">
+            <!-- Logo section with shop icon and name -->
+            <div class="logo">
+                <!-- Shop logo image -->
+                <img src="Game store logo.svg" alt="Ironvow Shop Logo" class="img">
+                <!-- Shop name/title -->
+                <h2>Ironvow Shop</h2>
+            </div>
+            <!-- Main navigation links -->
+            <ul class="nav-links">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="products.html" class="active">Offer/Sale</a></li>
+                <li><a href="cart.html">Cart</a></li>
+                <li><a href="news.html">News</a></li>
+                <li><a href="library.html">Library</a></li>
+                <li><a href="myside.html">My Side</a></li>
+                <li><a href="index.html">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- MAIN CONTENT: Products and offers showcase -->
+    <main>
+        <!-- Products section container displaying sale items -->
+        <section class="products-section">
+            <!-- Products page header title -->
+            <h2 class="products-header">Ironvow Shop</h2>
+
+            <!-- Promotional banner for current offer -->
+            <div class="sale-banner">
+                <p>This Valentine get games on big offer!</p>
+            </div>
+
+            <!-- SALE & OFFERS SECTION: Discounted games up to 70% off -->
+            <div class="section-label">SALE & OFFERS - UP TO 70% OFF</div>
+            <!-- Grid layout for displaying discounted game items -->
+            <div class="sale-grid">
+                <div class="sale-item" onclick="addToCart('The Witcher 3: Wild Hunt', 19.99);">
+                    <div class="sale-box"></div>
+                    <p class="game-name">The Witcher 3: Wild Hunt</p>
+                    <p class="sale-price">$19.99</p>
+                </div>
+                <div class="sale-item" onclick="addToCart('Cyberpunk 2077', 29.99);">
+                    <div class="sale-box"></div>
+                    <p class="game-name">Cyberpunk 2077</p>
+                    <p class="sale-price">$29.99</p>
+                </div>
+                <div class="sale-item" onclick="addToCart('Hogwarts Legacy', 24.99);">
+                    <div class="sale-box"></div>
+                    <p class="game-name">Hogwarts Legacy</p>
+                    <p class="sale-price">$24.99</p>
+                </div>
+                <div class="sale-item">
+                    <div class="sale-box"></div>
+                    <p class="game-name">Starfield</p>
+                    <p class="sale-price">$39.99</p>
+                </div>
+                <div class="sale-item">
+                    <div class="sale-box"></div>
+                    <p class="game-name">Baldur's Gate 3</p>
+                    <p class="sale-price">$44.99</p>
+                </div>
+                <div class="sale-item">
+                    <div class="sale-box"></div>
+                    <p class="game-name">Dragon's Dogma 2</p>
+                    <p class="sale-price">$34.99</p>
+                </div>
+                <div class="sale-item">
+                    <div class="sale-box"></div>
+                    <p class="game-name">Final Fantasy XVI</p>
+                    <p class="sale-price">$34.99</p>
+                </div>
+                <div class="sale-item">
+                    <div class="sale-box"></div>
+                    <p class="game-name">Street Fighter 6</p>
+                    <p class="sale-price">$19.99</p>
+                </div>
+                <div class="sale-item">
+                    <div class="sale-box"></div>
+                    <p class="game-name">Tekken 8</p>
+                    <p class="sale-price">$49.99</p>
+                </div>
+                <div class="sale-item">
+                    <div class="sale-box"></div>
+                    <p class="game-name">Metaphor: ReFantazio</p>
+                    <p class="sale-price">$39.99</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER: Copyright and site information -->
+    <footer>
+        <!-- Copyright notice -->
+        <p>&copy; 2026 Ironvow Shop. All rights reserved.</p>
+    </footer>
+
+    <!-- JAVASCRIPT: Cart management functionality -->
+    <script>
+        <!-- Function to add selected game to shopping cart -->
+        function addToCart(name, price) {
+            // Retrieve existing cart from browser storage or create empty array
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            // Add new game item to cart
+            cart.push({ name, price });
+            // Save updated cart to browser storage
+            localStorage.setItem('cart', JSON.stringify(cart));
+            // Confirm to user that item was added
+            alert(`${name} added to cart!`);
+        }
+    </script>
+</body>
+</html>

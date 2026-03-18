@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- ===================================================================
+     CONTACT PAGE
+     =================================================================== -->
+<head>
+    <!-- Meta tags for character encoding and viewport settings -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Ironvow Shop</title>
+    <!-- Link to main stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Custom favicon for the browser tab -->
+    <link rel="icon" href="Game store logo.svg" type="image/svg+xml">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="Game store logo.svg" alt="Ironvow Shop Logo" class="img">
+                <h2>Ironvow Shop</h2>
+            </div>
+            <ul class="nav-links">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="products.html">Offer/Sale</a></li>
+                <li><a href="cart.html">Cart</a></li>
+                <li><a href="news.html">News</a></li>
+                <li><a href="myside.html">My Side</a></li>
+                <li><a href="index.html">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="contact">
+            <h1>Contact Us</h1>
+            <p>Have questions or need help? Get in touch with us!</p>
+            <div class="contact-info">
+                <div class="info-item">
+                    <h3>Email</h3>
+                    <p>support@ironvowshop.com</p>
+                </div>
+                <div class="info-item">
+                    <h3>Phone</h3>
+                    <p>+1 (555) 123-4567</p>
+                </div>
+                <div class="info-item">
+                    <h3>Address</h3>
+                    <p>123 Gaming Street<br>Pixel City, PC 12345</p>
+                </div>
+            </div>
+            <form class="contact-form">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn">Send Message</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Ironvow Shop. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.querySelector('.contact-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Thank you for your message! We\'ll get back to you soon.');
+        });
+    </script>
+</body>
+</html>
