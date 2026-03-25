@@ -1,61 +1,78 @@
 const express = require('express');
 const path = require('path');
-const fs = require('fs');
+const bcrypt = require('bcrypt');
+const session = require('express-session');
+const db = require('./db');
 
 const app = express();
 const port = 3000;
 
-// Middleware to parse form data
+// Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
-// Serve static files
 app.use(express.static(path.join(__dirname)));
 
-// In-memory user storage (for demo; use database in production)
-let users = [];
+// Session setup
+app.use(session({
+  secret: 'gaming123',
+  resave: false,
+  saveUninitialized: false
+}));
 
-// Load users from file if exists
-const usersFile = path.join(__dirname, 'users.json');
-if (fs.existsSync(usersFile)) {
-    users = JSON.parse(fs.readFileSync(usersFile, 'utf8'));
-}
+// REGISTER
+app.post('/signup', async (req, res) => {
+  const { username, email, password } = req.body;
 
-// Routes
-app.post('/signup', (req, res) => {
-    const { username, email, password } = req.body;
-    
-    // Check if user already exists
-    const existingUser = users.find(user => user.email === email);
-    if (existingUser) {
-        return res.status(400).send('User already exists');
+  // Check if email already exists
+  db.query('SELECT * FROM users WHERE email = ?', [email], async (err, results) => {
+    if (results.length > 0) {
+      return res.status(400).send('Email already registered');
     }
-    
-    // Add new user
-    const newUser = { username, email, password };
-    users.push(newUser);
-    
-    // Save to file
-    fs.writeFileSync(usersFile, JSON.stringify(users, null, 2));
-    
-    // Redirect to home
-    res.redirect('/home.html');
+
+    // Hash the password before saving
+    const hash = await bcrypt.hash(password, 10);
+
+    db.query(
+      'INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)',
+      [username, email, hash],
+      (err) => {
+        if (err) return res.status(500).send('Something went wrong');
+        res.redirect('/home.html');
+      }
+    );
+  });
 });
 
+// LOGIN
 app.post('/login', (req, res) => {
-    const { email, password } = req.body;
-    
-    // Find user
-    const user = users.find(user => user.email === email && user.password === password);
-    if (!user) {
-        return res.status(401).send('Invalid credentials');
+  const { email, password } = req.body;
+
+  db.query('SELECT * FROM users WHERE email = ?', [email], async (err, results) => {
+    if (results.length === 0) {
+      return res.status(401).send('Invalid email or password');
     }
-    
-    // Redirect to home
+
+    const user = results[0];
+
+    // Compare password with hashed version
+    const match = await bcrypt.compare(password, user.password_hash);
+    if (!match) {
+      return res.status(401).send('Invalid email or password');
+    }
+
+    // Save user in session
+    req.session.user = { id: user.id, username: user.username, email: user.email };
     res.redirect('/home.html');
+  });
+});
+
+// LOGOUT
+app.get('/logout', (req, res) => {
+  req.session.destroy();
+  res.redirect('/index.html');
 });
 
 // Start server
 app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
+  console.log(`Server running at http://localhost:${port}`);
 });
