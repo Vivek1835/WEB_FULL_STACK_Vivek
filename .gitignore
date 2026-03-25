@@ -1,6 +1,3 @@
 node_modules
 db.js
 .gitignore
-server.js
-package-lock.json
-package.json
