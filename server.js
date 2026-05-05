@@ -72,6 +72,87 @@ app.get('/logout', (req, res) => {
   res.redirect('/index.html');
 });
 
+// GET all games from database
+app.get('/api/games', (req, res) => {
+  db.query('SELECT * FROM games', (err, results) => {
+    if (err) return res.status(500).json({ error: 'Failed to load games' });
+    res.json(results);
+  });
+});
+
+// ADD / REMOVE favourite
+app.post('/api/favourite', (req, res) => {
+  if (!req.session.user) return res.json({ message: 'not logged in' });
+  const userId = req.session.user.id;
+  const { gameId } = req.body;
+
+  // Check if already favourited
+  db.query('SELECT * FROM favourites WHERE user_id = ? AND game_id = ?', [userId, gameId], (err, results) => {
+    if (results.length > 0) {
+      // Already exists - remove it
+      db.query('DELETE FROM favourites WHERE user_id = ? AND game_id = ?', [userId, gameId], () => {
+        res.json({ message: 'removed' });
+      });
+    } else {
+      // Add to favourites
+      db.query('INSERT INTO favourites (user_id, game_id) VALUES (?, ?)', [userId, gameId], () => {
+        res.json({ message: 'added' });
+      });
+    }
+  });
+});
+
+// ADD TO CART
+app.post('/api/cart', (req, res) => {
+  if (!req.session.user) return res.json({ message: 'not logged in' });
+  const userId = req.session.user.id;
+  const { gameId } = req.body;
+
+  // Check if already in cart
+  db.query('SELECT * FROM cart_items WHERE user_id = ? AND game_id = ?', [userId, gameId], (err, results) => {
+    if (results.length > 0) {
+      return res.json({ message: 'already in cart' });
+    }
+    // Add to cart
+    db.query('INSERT INTO cart_items (user_id, game_id) VALUES (?, ?)', [userId, gameId], () => {
+      res.json({ message: 'added' });
+    });
+  });
+});
+
+// GET cart items for logged in user
+app.get('/api/cart/items', (req, res) => {
+  if (!req.session.user) return res.json({ message: 'not logged in' });
+  const userId = req.session.user.id;
+
+  // Join cart_items with games to get full game details
+  db.query(
+    'SELECT cart_items.game_id, games.title, games.price FROM cart_items JOIN games ON cart_items.game_id = games.id WHERE cart_items.user_id = ?',
+    [userId],
+    (err, results) => {
+      if (err) return res.status(500).json({ error: 'Failed to load cart' });
+      res.json(results);
+    }
+  );
+});
+
+// REMOVE game from cart
+app.post('/api/cart/remove', (req, res) => {
+  if (!req.session.user) return res.json({ message: 'not logged in' });
+  const userId = req.session.user.id;
+  const { gameId } = req.body;
+
+  // Delete the cart item from database
+  db.query(
+    'DELETE FROM cart_items WHERE user_id = ? AND game_id = ?',
+    [userId, gameId],
+    (err) => {
+      if (err) return res.status(500).json({ error: 'Failed to remove' });
+      res.json({ message: 'removed' });
+    }
+  );
+});
+
 // Start server
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
