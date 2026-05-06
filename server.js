@@ -156,4 +156,4 @@ app.post('/api/cart/remove', (req, res) => {
 // Start server
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
-});
+}); 
