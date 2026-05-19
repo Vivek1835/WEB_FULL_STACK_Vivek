@@ -1006,3 +1006,63 @@ footer {
 .detail-content strong {
     color: var(--accent-primary);
 }
+
+/* GAME COVER IMAGE */
+/* Real game cover photo loaded from Steam CDN via database */
+.game-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+}
+
+/* CARD BUTTONS ROW */
+/* Container for favourite and cart buttons at bottom of game card */
+.card-buttons {
+    display: flex;
+    gap: 8px;
+    padding: 8px 12px;
+}
+
+/* FAVOURITE AND CART BUTTON STYLING */
+.fav-btn, .cart-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+/* Button hover animation */
+.fav-btn:hover, .cart-btn:hover {
+    transform: scale(1.2);
+}
+
+/* FAVOURITE BUTTON STYLING */
+/* Pink circle outline with heart inside */
+.fav-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;              /* Makes it a circle */
+    border: 2px solid #ff69b4;       /* Pink outline circle */
+    background: none;                /* Transparent background */
+    color: #ff69b4;                  /* Pink heart */
+    font-size: 16px;                 /* Heart size */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, color 0.2s;
+    padding: 0;
+}
+
+/* Filled state when game is favourited */
+.fav-btn.active {
+    background: #ff69b4;             /* Solid pink background */
+    color: white;                    /* White heart inside */
+}
+
+/* Scale up slightly on hover */
+.fav-btn:hover {
+    transform: scale(1.15);
+}
