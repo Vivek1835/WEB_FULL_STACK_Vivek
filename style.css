@@ -1028,41 +1028,23 @@ footer {
 .fav-btn, .cart-btn {
     background: none;
     border: none;
-    font-size: 20px;
     cursor: pointer;
     transition: transform 0.2s;
+    padding: 4px;
 }
 
-/* Button hover animation */
+/* FAVOURITE BUTTON - always pink, outline or filled */
+.fav-btn {
+    color: #ff69b4;
+    font-size: 24px;
+}
+
+/* CART BUTTON */
+.cart-btn {
+    font-size: 24px;
+}
+
+/* Hover animation for both buttons */
 .fav-btn:hover, .cart-btn:hover {
     transform: scale(1.2);
-}
-
-/* FAVOURITE BUTTON STYLING */
-/* Pink circle outline with heart inside */
-.fav-btn {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;              /* Makes it a circle */
-    border: 2px solid #ff69b4;       /* Pink outline circle */
-    background: none;                /* Transparent background */
-    color: #ff69b4;                  /* Pink heart */
-    font-size: 16px;                 /* Heart size */
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.2s, color 0.2s;
-    padding: 0;
-}
-
-/* Filled state when game is favourited */
-.fav-btn.active {
-    background: #ff69b4;             /* Solid pink background */
-    color: white;                    /* White heart inside */
-}
-
-/* Scale up slightly on hover */
-.fav-btn:hover {
-    transform: scale(1.15);
 }

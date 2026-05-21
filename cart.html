@@ -33,7 +33,7 @@
                 <li><a href="news.html">News</a></li>
                 <li><a href="library.html">Library</a></li>
                 <li><a href="myside.html">My Side</a></li>
-                <li><a href="index.html">Login</a></li>
+                <li id="login-nav-item"><a href="index.html">Login</a></li>
             </ul>
         </nav>
     </header>
@@ -158,5 +158,16 @@
             alert('Checkout coming soon!');
         });
     </script>
+    <!-- Hide login link if user is already logged in -->
+<script>
+    fetch('/api/session')
+        .then(res => res.json())
+        .then(data => {
+            if (data.loggedIn) {
+                const loginItem = document.getElementById('login-nav-item');
+                if (loginItem) loginItem.style.display = 'none';
+            }
+        });
+</script>
 </body>
 </html>

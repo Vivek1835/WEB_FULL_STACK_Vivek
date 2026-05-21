@@ -102,6 +102,22 @@ app.post('/api/favourite', (req, res) => {
   });
 });
 
+// GET favourites for logged in user
+app.get('/api/favourites', (req, res) => {
+  if (!req.session.user) return res.json({ message: 'not logged in' });
+  const userId = req.session.user.id;
+
+  // Get all game IDs that this user has favourited
+  db.query(
+    'SELECT game_id FROM favourites WHERE user_id = ?',
+    [userId],
+    (err, results) => {
+      if (err) return res.status(500).json({ error: 'Failed to load favourites' });
+      res.json(results);
+    }
+  );
+});
+
 // ADD TO CART
 app.post('/api/cart', (req, res) => {
   if (!req.session.user) return res.json({ message: 'not logged in' });
@@ -153,7 +169,35 @@ app.post('/api/cart/remove', (req, res) => {
   );
 });
 
+// GET logged in user info
+app.get('/api/user', (req, res) => {
+  if (!req.session.user) return res.json({ message: 'not logged in' });
+  res.json(req.session.user);
+});
+
+// GET full favourite games details for logged in user
+app.get('/api/favourites/full', (req, res) => {
+  if (!req.session.user) return res.json({ message: 'not logged in' });
+  const userId = req.session.user.id;
+
+  // Join favourites with games to get full game details
+  db.query(
+    'SELECT games.id, games.title, games.price, games.image_url, games.steam_url FROM favourites JOIN games ON favourites.game_id = games.id WHERE favourites.user_id = ?',
+    [userId],
+    (err, results) => {
+      if (err) return res.status(500).json({ error: 'Failed to load favourites' });
+      res.json(results);
+    }
+  );
+});
+
+// CHECK if user is logged in (for navbar)
+app.get('/api/session', (req, res) => {
+  if (!req.session.user) return res.json({ loggedIn: false });
+  res.json({ loggedIn: true, username: req.session.user.username });
+});
+
 // Start server
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
-}); 
+});
