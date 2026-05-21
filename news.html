@@ -1,16 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <!-- ===================================================================
-     NEWS PAGE
+     NEWS PAGE - Real gaming news loaded from NewsAPI
      =================================================================== -->
 <head>
-    <!-- Meta tags for character encoding and viewport settings -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>News - Ironvow Shop</title>
-    <!-- Link to main stylesheet -->
     <link rel="stylesheet" href="style.css">
-    <!-- Custom favicon for the browser tab -->
     <link rel="icon" href="Game store logo.svg" type="image/svg+xml">
 </head>
 <body>
@@ -34,53 +31,12 @@
 
     <main>
         <section class="news-section">
-            <h2 class="news-page-header">Ironvow Shop</h2>
+            <h2 class="news-page-header">Latest Gaming News</h2>
 
-            <div class="news-boxes-grid">
-                <div class="news-item">
-                    <div class="news-box"></div>
-                    <p class="news-description">Elden Ring DLC Shadow of the Erdtree</p>
-                </div>
-                <div class="news-item">
-                    <div class="news-box"></div>
-                    <p class="news-description">Dragon Age Veilguard Released</p>
-                </div>
-                <div class="news-item">
-                    <div class="news-box"></div>
-                    <p class="news-description">GTA 6 Performance Update</p>
-                </div>
-                <div class="news-item">
-                    <div class="news-box"></div>
-                    <p class="news-description">S.T.A.L.K.E.R 2 Performance Update</p>
-                </div>
-                <div class="news-item">
-                    <div class="news-box"></div>
-                    <p class="news-description">Starfield Major Content Patch</p>
-                </div>
-                <div class="news-item">
-                    <div class="news-box"></div>
-                    <p class="news-description">Final Fantasy XVI Free Trial</p>
-                </div>
-                <div class="news-item">
-                    <div class="news-box"></div>
-                    <p class="news-description">Tekken 8 New Characters</p>
-                </div>
-                <div class="news-item">
-                    <div class="news-box"></div>
-                    <p class="news-description">Street Fighter 6 Tournament</p>
-                </div>
-                <div class="news-item">
-                    <div class="news-box"></div>
-                    <p class="news-description">Baldur's Gate 3 Patch 7</p>
-                </div>
-                <div class="news-item">
-                    <div class="news-box"></div>
-                    <p class="news-description">Cyberpunk 2077 Update 2.2</p>
-                </div>
-                <div class="news-item">
-                    <div class="news-box"></div>
-                    <p class="news-description">New Games Coming March 2026</p>
-                </div>
+            <!-- News grid - filled by JavaScript with real articles -->
+            <div class="news-boxes-grid" id="news-grid">
+                <!-- Loading message shown while fetching news -->
+                <p style="color: var(--text-secondary);">Loading news...</p>
             </div>
         </section>
     </main>
@@ -88,16 +44,53 @@
     <footer>
         <p>&copy; 2026 Ironvow Shop. All rights reserved.</p>
     </footer>
-    <!-- Hide login link if user is already logged in -->
-<script>
-    fetch('/api/session')
-        .then(res => res.json())
-        .then(data => {
-            if (data.loggedIn) {
-                const loginItem = document.getElementById('login-nav-item');
-                if (loginItem) loginItem.style.display = 'none';
-            }
-        });
-</script>
+
+    <!-- SCRIPT: Fetches real gaming news from NewsAPI -->
+    <script>
+        // Fetch real gaming news from NewsAPI
+        fetch('/api/news')
+            .then(res => res.json())
+            .then(articles => {
+                const grid = document.getElementById('news-grid');
+                grid.innerHTML = '';
+
+                if (!articles || articles.length === 0) {
+                    grid.innerHTML = '<p style="color: var(--text-secondary);">No news available right now.</p>';
+                    return;
+                }
+
+                // Loop through each article and build a news card
+                articles.forEach(article => {
+                    const item = document.createElement('div');
+                    item.className = 'news-item';
+                    item.style.cursor = 'pointer';
+                    item.onclick = () => window.open(article.url, '_blank');
+
+                    // Use article image or fallback to placeholder
+                    const img = article.urlToImage
+                        ? `<img src="${article.urlToImage}" alt="${article.title}" style="width:100%; height:120px; object-fit:cover; border-radius:8px; margin-bottom:0.8rem;">`
+                        : `<div class="news-box"></div>`;
+
+                    item.innerHTML = `
+                        ${img}
+                        <p class="news-description">${article.title}</p>
+                        <p style="color: var(--text-secondary); font-size: 0.75rem; margin-top: 0.3rem;">
+                            ${article.source.name} · ${new Date(article.publishedAt).toLocaleDateString()}
+                        </p>
+                    `;
+                    grid.appendChild(item);
+                });
+            });
+
+        // Hide login if logged in
+        fetch('/api/session')
+            .then(res => res.json())
+            .then(data => {
+                if (data.loggedIn) {
+                    const loginItem = document.getElementById('login-nav-item');
+                    if (loginItem) loginItem.style.display = 'none';
+                }
+            });
+    </script>
 </body>
 </html>

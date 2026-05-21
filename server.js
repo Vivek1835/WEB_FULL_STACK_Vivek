@@ -3,6 +3,7 @@ const path = require('path');
 const bcrypt = require('bcrypt');
 const session = require('express-session');
 const db = require('./db');
+const fetch = require('node-fetch');
 
 const app = express();
 const port = 3000;
@@ -195,6 +196,17 @@ app.get('/api/favourites/full', (req, res) => {
 app.get('/api/session', (req, res) => {
   if (!req.session.user) return res.json({ loggedIn: false });
   res.json({ loggedIn: true, username: req.session.user.username });
+});
+
+// GET real gaming news from NewsAPI
+app.get('/api/news', async (req, res) => {
+  try {
+    const response = await fetch('https://newsapi.org/v2/everything?q=gaming&sortBy=publishedAt&pageSize=11&apiKey=8dbc56579f71817190c879a02222ac0b');
+    const data = await response.json();
+    res.json(data.articles);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch news' });
+  }
 });
 
 // Start server
