@@ -183,7 +183,7 @@ app.get('/api/favourites/full', (req, res) => {
 
   // Join favourites with games to get full game details
   db.query(
-    'SELECT games.id, games.title, games.price, games.image_url, games.steam_url FROM favourites JOIN games ON favourites.game_id = games.id WHERE favourites.user_id = ?',
+    'SELECT games.id, games.title, games.genre, games.price, games.image_url, games.steam_url FROM favourites JOIN games ON favourites.game_id = games.id WHERE favourites.user_id = ?',
     [userId],
     (err, results) => {
       if (err) return res.status(500).json({ error: 'Failed to load favourites' });
@@ -198,15 +198,26 @@ app.get('/api/session', (req, res) => {
   res.json({ loggedIn: true, username: req.session.user.username });
 });
 
-// GET real gaming news from NewsAPI
+// GET real gaming news from GNews API
 app.get('/api/news', async (req, res) => {
   try {
-    const response = await fetch('https://newsapi.org/v2/everything?q=gaming&sortBy=publishedAt&pageSize=11&apiKey=8dbc56579f71817190c879a02222ac0b');
+    const response = await fetch('https://gnews.io/api/v4/search?q=gaming&lang=en&max=11&apikey=3c755138f2294da1d644c8fd2cdc3be0');
     const data = await response.json();
     res.json(data.articles);
   } catch (err) {
     res.status(500).json({ error: 'Failed to fetch news' });
   }
+});
+
+// GET games that are on sale (have a sale_price)
+app.get('/api/sale-games', (req, res) => {
+  db.query(
+    'SELECT * FROM games WHERE sale_price IS NOT NULL',
+    (err, results) => {
+      if (err) return res.status(500).json({ error: 'Failed to load sale games' });
+      res.json(results);
+    }
+  );
 });
 
 // Start server

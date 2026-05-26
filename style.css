@@ -25,7 +25,7 @@
     --text-secondary: #999da3;       /* Medium gray - secondary/muted text */
     
     /* Accent color for buttons, links, and highlights */
-    --accent-primary: #e49778;       /* Warm orange - primary accent color */
+    --accent-primary: #e5b09c;       /* Warm orange - primary accent color */
     --accent-primary-hover: #c9775d; /* Darker orange - hover state for buttons */
     
     /* Surface/container background colors with transparency */
@@ -675,7 +675,14 @@ footer {
     margin: 0 1.2rem 1.2rem 1.2rem;  /* Padding inside card, more space at bottom */
 }
 
-
+/* CART BUTTON WITH TEXT on products page */
+.cart-btn {
+    color: var(--accent-primary);
+    font-size: 0.95rem;
+    padding: 6px 10px;
+    border-radius: 4px;
+    width: 100%;
+}
 
 /* ===================================================================
    PRODUCTS/OFFER PAGE STYLES

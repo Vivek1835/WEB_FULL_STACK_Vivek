@@ -1,16 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <!-- ===================================================================
-     LIBRARY PAGE
+     LIBRARY PAGE - Shows user's game collection
      =================================================================== -->
 <head>
-    <!-- Meta tags for character encoding and viewport settings -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library - Ironvow Shop</title>
-    <!-- Link to main stylesheet -->
     <link rel="stylesheet" href="style.css">
-    <!-- Custom favicon for the browser tab -->
     <link rel="icon" href="Game store logo.svg" type="image/svg+xml">
 </head>
 <body>
@@ -34,48 +31,43 @@
 
     <main>
         <section class="library-section">
-            <h2 class="library-page-header">Website name</h2>
+            <!-- Library page header -->
+            <h2 class="library-page-header">My Library</h2>
 
-            <div class="library-layout">
-                <div class="library-games-grid">
-                    <div class="library-game-box">
-                        <div class="game-label">Elden Ring</div>
-                    </div>
-                    <div class="library-game-box">
-                        <div class="game-label">Cyberpunk</div>
-                    </div>
-                    <div class="library-game-box">
-                        <div class="game-label">Baldur's Gate 3</div>
-                    </div>
-                    <div class="library-game-box">
-                        <div class="game-label">Starfield</div>
-                    </div>
-                    <div class="library-game-box">
-                        <div class="game-label">Witcher 3</div>
-                    </div>
-                    <div class="library-game-box">
-                        <div class="game-label">Dragon Age</div>
-                    </div>
-                    <div class="library-game-box">
-                        <div class="game-label">Final Fantasy</div>
-                    </div>
-                    <div class="library-game-box">
-                        <div class="game-label">Tekken 8</div>
-                    </div>
-                </div>
+            <!-- Show this if not logged in -->
+            <div id="not-logged-in" style="display:none; text-align:center; padding:4rem;">
+                <p style="color: var(--text-secondary); font-size:1.2rem; margin-bottom:1rem;">Please login to see your library!</p>
+                <a href="index.html" class="btn">Login / Register</a>
+            </div>
 
-                <div class="library-detail-panel">
-                    <div class="detail-header">
-                        <h3>Game Details</h3>
+            <!-- Show this if logged in -->
+            <div id="library-content" style="display:none;">
+                <div class="library-layout">
+
+                    <!-- LEFT SIDE: Game list -->
+                    <div class="library-games-grid" id="library-games-grid">
+                        <!-- Filled by JavaScript from database -->
                     </div>
-                    <div class="detail-content">
-                        <p><strong>Name:</strong> Elden Ring</p>
-                        <p><strong>Size:</strong> 60 GB</p>
-                        <p><strong>Developer:</strong> FromSoftware</p>
-                        <p><strong>Status:</strong> Installed</p>
-                        <p><strong>Play Time:</strong> 120 hours</p>
-                        <p><strong>Last Played:</strong> Today</p>
+
+                    <!-- RIGHT SIDE: Selected game details -->
+                    <div class="library-detail-panel">
+                        <div class="detail-header">
+                            <h3 id="detail-title">Select a game</h3>
+                        </div>
+                        <div class="detail-content" id="detail-content">
+                            <!-- Game image -->
+                            <img id="detail-image" src="" alt="" style="width:100%; border-radius:8px; margin-bottom:1rem; display:none;">
+                            <!-- Game details -->
+                            <p id="detail-genre" style="display:none;"><strong>Genre:</strong> <span></span></p>
+                            <p id="detail-price" style="display:none;"><strong>Price:</strong> <span></span></p>
+                            <p style="color: var(--text-secondary); font-size:0.9rem;" id="detail-placeholder">Click a game on the left to see details.</p>
+                            <!-- Open on Steam button -->
+                            <a id="detail-steam-btn" href="#" target="_blank" class="btn" style="display:none; margin-top:1rem; text-align:center;">
+                                Open on Steam
+                            </a>
+                        </div>
                     </div>
+
                 </div>
             </div>
         </section>
@@ -85,28 +77,98 @@
         <p>&copy; 2026 Ironvow Shop. All rights reserved.</p>
     </footer>
 
+    <!-- SCRIPT: Loads user's favourite games as their library -->
     <script>
-        document.querySelectorAll('.library-list a').forEach(link => {
-            link.addEventListener('click', (event) => {
-                event.preventDefault();
-                const title = link.getAttribute('data-title');
-                const size = link.getAttribute('data-size');
-                document.getElementById('game-name').textContent = title;
-                document.getElementById('game-size').textContent = size;
-                document.getElementById('game-info').textContent = `Detailed info about ${title} will appear here.`;
+        // Check session first
+        fetch('/api/session')
+            .then(res => res.json())
+            .then(data => {
+                if (data.loggedIn) {
+                    // Hide login nav item
+                    const loginItem = document.getElementById('login-nav-item');
+                    if (loginItem) loginItem.style.display = 'none';
+                    // Show library content
+                    document.getElementById('library-content').style.display = 'block';
+                    loadLibrary();
+                } else {
+                    document.getElementById('not-logged-in').style.display = 'block';
+                }
             });
-        });
+
+        // Load user's favourited games as library
+        function loadLibrary() {
+            fetch('/api/favourites/full')
+                .then(res => res.json())
+                .then(games => {
+                    const grid = document.getElementById('library-games-grid');
+
+                    if (!Array.isArray(games) || games.length === 0) {
+                        grid.innerHTML = `
+                            <div style="color: var(--text-secondary); padding:1rem;">
+                                <p>Your library is empty!</p>
+                                <p style="font-size:0.9rem; margin-top:0.5rem;">Heart games on the home page to add them to your library.</p>
+                                <a href="home.html" class="btn" style="display:inline-block; margin-top:1rem;">Browse Games</a>
+                            </div>`;
+                        return;
+                    }
+
+                    grid.innerHTML = '';
+                    // Build a box for each game
+                    games.forEach(game => {
+                        const box = document.createElement('div');
+                        box.className = 'library-game-box';
+                        box.style.cursor = 'pointer';
+                        box.style.padding = '0';
+                        box.style.overflow = 'hidden';
+                        box.style.position = 'relative';
+                        box.onclick = () => showGameDetails(game);
+                        box.innerHTML = `
+                            <!-- Game cover image -->
+                            <img src="${game.image_url}" alt="${game.title}" style="width:100%; height:100%; object-fit:cover; border-radius:4px;">
+                            <!-- Game title overlay at bottom -->
+                            <div style="
+                                position:absolute;
+                                bottom:0;
+                                left:0;
+                                right:0;
+                                background: rgba(0,0,0,0.7);
+                                padding:0.4rem 0.6rem;
+                            ">
+                                <div class="game-label">${game.title}</div>
+                            </div>
+                        `;
+                        grid.appendChild(box);
+                    });
+                });
+        }
+
+        // Show game details on the right panel when clicked
+        function showGameDetails(game) {
+            // Update detail panel with selected game info
+            document.getElementById('detail-title').textContent = game.title;
+            document.getElementById('detail-placeholder').style.display = 'none';
+
+            // Show game image
+            const img = document.getElementById('detail-image');
+            img.src = game.image_url;
+            img.alt = game.title;
+            img.style.display = 'block';
+
+            // Show genre
+            const genreEl = document.getElementById('detail-genre');
+            genreEl.style.display = 'block';
+            genreEl.querySelector('span').textContent = game.genre || 'N/A';
+
+            // Show price
+            const priceEl = document.getElementById('detail-price');
+            priceEl.style.display = 'block';
+            priceEl.querySelector('span').textContent = game.price == 0 ? 'FREE' : '$' + parseFloat(game.price).toFixed(2);
+
+            // Show Steam button
+            const steamBtn = document.getElementById('detail-steam-btn');
+            steamBtn.href = game.steam_url;
+            steamBtn.style.display = 'block';
+        }
     </script>
 </body>
-<!-- Hide login link if user is already logged in -->
-<script>
-    fetch('/api/session')
-        .then(res => res.json())
-        .then(data => {
-            if (data.loggedIn) {
-                const loginItem = document.getElementById('login-nav-item');
-                if (loginItem) loginItem.style.display = 'none';
-            }
-        });
-</script>
 </html>
