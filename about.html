@@ -50,16 +50,6 @@
     <footer>
         <p>&copy; 2026 Ironvow Shop. All rights reserved.</p>
     </footer>
-    <!-- Hide login link if user is already logged in -->
-<script>
-    fetch('/api/session')
-        .then(res => res.json())
-        .then(data => {
-            if (data.loggedIn) {
-                const loginItem = document.getElementById('login-nav-item');
-                if (loginItem) loginItem.style.display = 'none';
-            }
-        });
-</script>
+    <script src="script.js"></script>
 </body>
 </html>
